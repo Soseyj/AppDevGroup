@@ -8,5 +8,5 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/', routess);
 app.listen(4000, ()=>{
-    console.log('server running');
+    console.log('server running on http://localhost:4000');
 }); 

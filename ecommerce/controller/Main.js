@@ -7,6 +7,14 @@ const main = {
         res.render('faqs');
     },
 
+    login:(req, res) =>{
+        res.render('login');
+    },
+
+    register:(req, res) =>{
+        res.render('register');
+    },
+
     ty:(req, res) =>{
         res.render('ty');
     },
@@ -33,6 +41,10 @@ const main = {
 
     services:(req, res) =>{
         res.render('services');
+    },
+
+    user:(req, res) =>{
+        res.render('user');
     },
 
     shop:(req, res) =>{

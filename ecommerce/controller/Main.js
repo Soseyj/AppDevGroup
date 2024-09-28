@@ -1,3 +1,6 @@
+const productModel = require('../models/productModel');
+const path = require('path');
+
 const main = {
     index:(req, res) =>{
         res.render('index');

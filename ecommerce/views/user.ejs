@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+        <div class="container">
+            <a class="navbar-brand" href="index">Furni<span>.</span></a>
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav me-auto mb-2 mb-md-0">
+                    <li>
+                        <a class="nav-link" href="index">Home</a>
+                    </li>
+                    <li><a class="nav-link" href="shop">Shop</a></li>
+                    <li><a class="nav-link" href="about">About</a></li>
+                    <li><a class="nav-link" href="services">Services</a></li>
+                    <li ><a class="nav-link" href="blog">Blog</a></li>
+                    <li><a class="nav-link" href="contact">Contact</a></li>
+                    <li><a class="nav-link" href="faqs">FAQs</a></li>
+                </ul>
+    
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="user"><img src="../assets/images/user.svg"></a></li>
+                    <li ><a class="nav-link" href="cart"><img src="../assets/images/cart.svg"></a></li>
+                </ul>
+            </div>
+        </div>
+        </nav>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-4 profile-card" style="border-radius: 15px;">
+                        <div class="card-body text-center">
+                            <img src="../assets/images/user.svg" alt="User" class="img-fluid rounded-circle mb-3" width="100">
+                            <h4>Norman Rivera</h4>
+                            <h6>normanrivera005@gmail.com</h6>
+                            <h6>09053570298</h6>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+                        </div>
+        
+                        <hr>
+        
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-wallet fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="mb-0">Wallet</h6>
+                                        <p class="mb-0">$250.00</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm">View</button>
+                            </div>
+        
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-question-circle fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="mb-0">Help Centre</h6>
+                                        <p class="mb-0">FAQs & Guides</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm">Get Help</button>
+                            </div>
+        
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-headset fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="mb-0">Customer Support</h6>
+                                        <p class="mb-0">24/7 Chat Support</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm">Contact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-8">
+                    <div class="card p-4 shipping-card" style="border-radius: 15px;">
+                        <div class="card-header">
+                            <h5>Shipping Address</h5>
+                            <button class="btn btn-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#addAddressModal">Add Address</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6>Oriental Mindoro, Calapan City</h6>
+                                <p>Pachoca, Block 5, 5200</p>
+                                <button class="btn btn-primary btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <span class="badge bg-secondary ms-2">Default</span>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Oriental Mindoro, Calapan City</h6>
+                                <p>San Antonio, Green Hills, 5200</p>
+                                <button class="btn btn-primary btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="modal fade" id="editProfileModal" tabindex="1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/editProf" method="post">
+                            <div class="mb-3">
+                                <label for="fName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fName" name="fName" value="Norman Rivera" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="normanrivera005@gmail.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="09053570298" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addAddressModal" tabindex="1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addAddressModalLabel">Add Shipping Address</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/addAdd" method="post">
+                            <div class="mb-3">
+                                <label for="province" class="form-label">Province</label>
+                                <input type="text" name="province" id="province" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" name="city" id="city" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="brgy" class="form-label">Barangay</label>
+                                <input type="text" name="brgy" id="brgy" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="postalcode" class="form-label">Postal Code</label>
+                                <input type="text" name="postalcode" id="postalcode" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="street" class="form-label">Street Name</label>
+                                <input type="text" name="street" id="street" class="form-control" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" name="isDefault" id="isDefault" class="form-check-input">
+                                <label for="isDefault" class="form-check-label">Set as default address</label>
+                            </div>
+                            <button type="submit" class="btn btn-success mt-3">Add Address</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

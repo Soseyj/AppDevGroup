@@ -227,7 +227,128 @@ const main = {
             console.error('Error removing item from cart:', error);
             return res.status(500).json({ message: 'Internal Server Error' });
         }
-    }
+    },
+
+    address: async (req, res) => {
+        const userId = req.session.userid;  
+        const addressId = req.params.addressId;  
+    
+        try {
+            console.log("User ID from params:", userId);
+            console.log("Address ID from params:", addressId);
+            const address = await addressModel.getAddressByIdAndUserId(addressId, userId);
+            console.log("Fetched address data:", address);
+            if (address.length > 0) {
+                res.render('address', { address: address[0] }); 
+            } else {
+                res.status(404).send('Address not found');
+            }
+        } catch (error) {
+            console.error("Error fetching address:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+    editUser: (req, res) => {
+        const userId = req.params.id;   
+        const updatedUser = {
+            fName: req.body.fName,
+            lName: req.body.lName,
+            phone: req.body.phone,
+            email: req.body.email
+        };
+       if (userModel.updateUser(userId, updatedUser, (err) => {
+        }))
+        res.redirect('/user/' + userId);
+        else {
+            console.error(error);
+        }
+    },
+
+    userPage: (req, res) => {
+        const userId = req.session.userid;
+        if (!userId) {
+            return res.redirect('/');
+        }
+        Promise.all([
+            userModel.getUserById(userId),
+            addressModel.getAddressByUserId(userId),
+        ])
+        .then(([user, addresses]) => {
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
+            if (!addresses || addresses.length === 0) {
+                console.warn('No addresses found for user:', userId); 
+            }
+            res.render('user', { user, addresses });
+        })
+        .catch(err => {
+            console.error('Error fetching user or addresses:', err);
+            res.status(500).send('Internal Server Error');
+        });
+    },
+ updateAddress: async (req, res) => {
+        const userId = req.session.userid;
+        const addressId = req.params.id; 
+        const { province, city, barangay, addressline, postal, is_default } = req.body;
+        console.log('Received address data:', {
+            province,
+            city,
+            barangay,
+            addressline,
+            postal,
+            is_default
+        }); 
+        try {
+            const result = await addressModel.updateAddress(addressId, userId, {
+                province,
+                city,
+                barangay,
+                addressline,
+                postal,
+                is_default: is_default === 'true' 
+            });
+            console.log('Update result:', result);
+            if (result.affectedRows === 0) {
+                console.log('No rows updated. Check if address ID and user ID are correct.');
+            } else {
+                console.log('Address updated successfully.');
+            }
+        } catch (error) {
+            console.error('Error updating address:', error);
+            res.status(500).json({ message: 'Internal server error.' });
+        }
+    },
+    async  setDefaultAddress(req, res) {
+        const userId = req.session.userid; 
+        console.log(`Received userId: ${userId}, addressId: ${addressId}`); 
+        if (!userId || !addressId) {
+            return res.status(400).send({ error: "userId and addressId are required." });
+        }
+        try {
+            await addressModel.setDefaultAddress(userId, addressId);
+            res.redirect('/user/' + userId);
+        } catch (error) {
+            console.error("Error setting default address:", error);
+            res.status(500).send({ error: "Failed to set default address." });
+        }
+    },
+
+    async searchProducts(req, res) {
+        const userId = req.session.userid;
+        const query = req.query.query;
+        try {
+            if (!query) {
+                return res.status(400).send({ error: "Search query is required." });
+            }
+            const products = await productModel.searchProducts(query);
+            res.render('shop', { products, user: req.user }); 
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            res.status(500).send({ error: "An error occurred while searching for products." });
+        }
+    },
+
 };
 
 module.exports = main;

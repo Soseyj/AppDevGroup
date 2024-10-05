@@ -102,7 +102,13 @@ const productModel = {
         } catch (error) {
             throw error;
         }
+    },
+    searchProducts: async (query) => {
+        const sql = "SELECT * FROM products WHERE name LIKE ?";
+        const [rows] = await db1.query(sql, [`%${query}%`]);
+        return rows;
     }
+
 };
 
 module.exports = productModel;

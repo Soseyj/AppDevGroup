@@ -32,4 +32,13 @@ router.get('/index/:id', main.index);
 router.get('/services/:id', main.services);
 router.get('/about/:id', main.about);
 
+router.get('/search', main.searchProducts);
+router.get('/user/:id', main.userPage);
+router.post('/editProf/:id', main.editUser);
+router.get('/address/:addressId', main.address);
+router.post('/addAdd/', main.addAddress);
+router.post('/updateAdd/:id', main.updateAddress);
+router.post('/setDefault/:addressId', main.setDefaultAddress);
+
+
 module.exports = router;

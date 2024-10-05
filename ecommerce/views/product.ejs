@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title><%= product.name %></title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4"><%= product.name %></h1>
+        <img src="<%= product.image_url %>" alt="<%= product.name %>" class="img-fluid mb-4">
+        <p class="h5">Price: $<%= product.price %></p>
+
+        <form action="/addCart/" method="POST" class="mt-4">
+            <input type="hidden" name="productId" value="<%= product.id %>">
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <div class="col-md-4 p-0"> <!-- Set width here -->
+                    <input type="number" id="quantity" name="quantity" class="form-control" min="1" value="1" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Add to Cart</button>
+        </form>
+    </div>
+<br>
+    <%- include('partials/footer') %>
+    <%- include('partials/scripts') %>
+</body>
+</html>

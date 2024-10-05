@@ -14,13 +14,19 @@
                     <div class="card-body">
                         <h3 class="text-center mb-4" style="color: #000;">Register</h3>
                         <form action="/register" method="post">
-                            <div class="mb-3">
-                                <label for="fName" class="form-label" style="color: #000;">Full Name</label>
-                                <input type="text" name="fName" id="fName" class="form-control" placeholder="Enter your name" required>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <label for="fName" class="form-label" style="color: #000;">First Name</label>
+                                    <input type="text" name="fName" id="fName" class="form-control" placeholder="Enter your first name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lName" class="form-label" style="color: #000;">Last Name</label>
+                                    <input type="text" name="lName" id="lName" class="form-control" placeholder="Enter your last name" required>           
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label" style="color: #000;">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                                <label for="email" class="form-label" style="color: #000;">Email <span class="text-muted">(Optional)</span></label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label" style="color: #000;">Phone Number</label>
@@ -36,7 +42,7 @@
                             </div>
                             <button type="submit" class="btn btn-warning w-100" style="border-radius: 30px;">Register</button>
                         </form>
-                        <p class="text-center mt-3" style="color: #000;">Already have an account? <a href="login" class="text-warning">Login</a></p>
+                        <p class="text-center mt-3" style="color: #000;">Already have an account? <a href="/" class="text-warning">Login</a></p>
                     </div>
                 </div>
             </div>

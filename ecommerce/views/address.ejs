@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Address</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Adjust the path as needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <%- include('partials/head') %>
+</head>
+<body style="background-color: #29443f;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5 p-4" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div class="card-body">
+                        <h3 class="text-center mb-4" style="color: #000;">Edit Address</h3>
+                        <form action="/updateAdd/<%= address.id %>" method="post">
+                            <input type="hidden" name="id" value="<%= address.id %>">
+                            <div class="mb-3">
+                                <label for="province" class="form-label" style="color: #000;">Province <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="province" value="<%= address.province %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label" style="color: #000;">City <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="city" value="<%= address.city %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="barangay" class="form-label" style="color: #000;">Barangay <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="barangay" value="<%= address.barangay %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addressline" class="form-label" style="color: #000;">Street Address <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="addressline" value="<%= address.addressline %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="postal" class="form-label" style="color: #000;">Postal Code <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" name="postal" value="<%= address.postal %>" required>
+                            </div>
+                            
+                            
+                            
+                            <button type="submit" class="btn btn-warning w-100" style="border-radius: 30px;">Update Address</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Additional JavaScript if needed
+    </script>
+</body>
+</html>

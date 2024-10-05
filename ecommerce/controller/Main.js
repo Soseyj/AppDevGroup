@@ -7,20 +7,87 @@ const bcrypt = require('bcrypt');
 const { error } = require('console');
 
 const main = {
+    admin: (req, res) => {
+        res.render('admin');
+    },
+    viewUsers: async (req, res) => {
+        try {
+            const users = await userModel.getAllUsers();
+            res.render('viewUsers', { users });
+        } catch (error) {
+            console.error('Error fetching users:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    },
+
+    viewProducts: async (req, res) => {
+        try {
+            const products = await productModel.getAllProducts();
+            const product1 = await productModel.getAllProducts();
+            res.render('viewProducts', { products, product1 });
+        } catch (error) {
+            console.error('Error fetching users:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    },
+    addProduct: (req, res) => {
+        const newProduct = {
+            name: req.body.name,
+            price: req.body.price,
+            stock: req.body.stock,
+            image_url: `/public/assets/images/${req.files.imageFile[0].filename}`
+        };
+        productModel.addProduct(newProduct, (err) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.redirect('/admin/products');
+            }
+        });
+    },
+
+    editProduct: (req, res) => {
+        const productId = req.params.id;
+        const updatedProduct = {
+            name: req.body.name,
+            price: req.body.price,
+            image_url: req.files.imageFile ? `/assets/images/${req.files.imageFile[0].filename}` : req.body.oldImage,
+        };
+        productModel.updateProduct(productId, updatedProduct, (err) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.redirect('/admin/products');
+            }
+        });
+    },
+
+    deleteProduct: (req, res) => {
+        const productId = req.params.id;
+        productModel.deleteProduct(productId, (err) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.redirect('/admin/products');
+            }
+        });
+    },
+
+
     ty: (req, res) => {
         res.render('ty');
     },
 
     checkout: async (req, res) => {
-        const userId = req.params.id; 
+        const userId = req.params.id;
         try {
-            const user = await userModel.getUserById(userId); 
-            res.render('checkout', { user }); 
-        } catch (error) {}
+            const user = await userModel.getUserById(userId);
+            res.render('checkout', { user });
+        } catch (error) { }
     },
-    
+
     viewCart: async (req, res) => {
-        const userId = req.session.userid; 
+        const userId = req.session.userid;
         const user = await userModel.getUserById(userId);
         if (!userId) {
             return res.status(401).json({ message: 'Unauthorized' });
@@ -38,16 +105,16 @@ const main = {
     },
 
     about: async (req, res) => {
-        const userId = req.params.id; 
+        const userId = req.params.id;
         try {
-            const user = await userModel.getUserById(userId); 
-            res.render('about', { user }); 
-        } catch (error) {}
+            const user = await userModel.getUserById(userId);
+            res.render('about', { user });
+        } catch (error) { }
     },
 
     product: async (req, res) => {
-        const userId = req.session.userid;  
-        const productId = req.params.productId;  
+        const userId = req.session.userid;
+        const productId = req.params.productId;
         try {
             const user = await userModel.getUserById(userId);
             if (!user) {
@@ -65,20 +132,20 @@ const main = {
     },
 
     services: async (req, res) => {
-        const userId = req.params.id; 
+        const userId = req.params.id;
         try {
-            const user = await userModel.getUserById(userId); 
-            res.render('services', { user }); 
-        } catch (error) {}
+            const user = await userModel.getUserById(userId);
+            res.render('services', { user });
+        } catch (error) { }
     },
-    
+
     shop: async (req, res) => {
-        const userId = req.session.userid; 
+        const userId = req.session.userid;
         try {
-            const products = await productModel.getAllProducts(); 
+            const products = await productModel.getAllProducts();
             const successMessage = req.session.message ? req.session.message.success : null;
-            req.session.message = null; 
-            res.render('shop', { products, successMessage, user: { id: userId } }); 
+            req.session.message = null;
+            res.render('shop', { products, successMessage, user: { id: userId } });
         } catch (error) {
             console.error('Error fetching products:', error);
             res.status(500).send('Internal Server Error');
@@ -86,7 +153,7 @@ const main = {
     },
 
     addToCart: async (req, res) => {
-        const userId = req.session.userid; 
+        const userId = req.session.userid;
         const productId = req.body.productId;
         const quantity = req.body.quantity;
         if (!userId) {
@@ -95,21 +162,21 @@ const main = {
         try {
             const result = await productModel.addToCart(userId, productId, quantity);
             req.session.message = { success: 'Successfully added to cart' };
-            res.redirect('/shop/' + userId); 
+            res.redirect('/shop/' + userId);
         } catch (error) {
             console.error('Error adding to cart:', error);
             res.status(500).json({ error: 'An error occurred while adding to the cart.' });
         }
     },
- 
+
     addAddress: async (req, res) => {
-        const userId = req.session.userid; 
+        const userId = req.session.userid;
         const { province, city, barangay, addressline, postal, is_default } = req.body;
         const isDefault = is_default === '1';
         if (!userId) {
             return res.status(400).json({ message: 'User not found. Please log in.' });
         }
-    
+
         if (!province || !city || !barangay || !addressline || !postal) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
@@ -123,7 +190,7 @@ const main = {
                 await addressModel.unsetDefaultAddress(existingDefaultAddress.id);
             }
             await addressModel.addAddress({
-                user_id: userId, 
+                user_id: userId,
                 province,
                 city,
                 barangay,
@@ -131,7 +198,7 @@ const main = {
                 postal,
                 is_default: isDefault
             });
-            res.redirect('/user/' + userId); 
+            res.redirect('/user/' + userId);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal server error.' });
@@ -139,8 +206,8 @@ const main = {
     },
 
     removeFromCart: async (req, res) => {
-        const userId = req.session.userid; 
-        const itemId = req.params.itemId; 
+        const userId = req.session.userid;
+        const itemId = req.params.itemId;
         console.log(`User ID: ${userId}, Item ID to remove: ${itemId}`);
         try {
             if (!userId || !itemId) {

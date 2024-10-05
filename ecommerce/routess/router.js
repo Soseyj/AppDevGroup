@@ -6,6 +6,21 @@ const main = require('../controller/Main');
 const productModel = require('../models/productModel');
 const { getAddressByUserId } = require('../models/addressModel');
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/assets/images/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+router.get('/admin', main.admin);
+router.get('/admin/users', main.viewUsers);
+router.get('/admin/products', main.viewProducts);
+router.post('/admin/addProduct', upload.fields([{ name: 'imageFile' }]), main.addProduct);
+router.post('/admin/product/:id', upload.fields([{ name: 'imageFile' }]), main.editProduct);
+router.post('/admin/deleteProduct/:id', main.deleteProduct);
 router.get('/shop/:id', main.shop);
 router.get('/cart/:userid', main.viewCart);
 router.post('/addCart/', main.addToCart);

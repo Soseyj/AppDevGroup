@@ -21,6 +21,19 @@ const productModel = {
         });
     },
 
+    addProduct: (newProduct, callback) => {
+        db.query('INSERT INTO products SET ?', newProduct, callback);
+    },
+
+    updateProduct: (id, updatedProduct, callback) => {
+        db.query('UPDATE products SET ? WHERE id = ?', [updatedProduct, id], callback);
+    },
+
+    deleteProduct: (id, callback) => {
+        db.query('DELETE FROM products WHERE id = ?', [id], callback);
+    },
+
+
     createCart: async (userId) => {
         const [result] = await db.query('INSERT INTO carts (user_id) VALUES (?)', [userId]);
         return result.insertId;
@@ -56,7 +69,7 @@ const productModel = {
              FROM cart_items ci 
              JOIN products p ON ci.product_id = p.id 
              JOIN carts c ON ci.cart_id = c.id 
-             WHERE c.user_id = ?`, 
+             WHERE c.user_id = ?`,
             [userId]
         );
         return cartItems;

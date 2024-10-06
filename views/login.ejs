@@ -4,20 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/styles.css">
+    <%- include('partials/head') %>
 </head>
-<body>
+<body style="background-color: #29443f;">
     <div class="container">
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-            <input type="text" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <div class="link-container">
-            <a href="/">Home</a>
-            <a href="/signup">Don't have an account? Sign up</a>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5 p-4" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div class="card-body">
+                        <h3 class="text-center mb-4" style="color: #000;">Login to Furni</h3>
+                        <form action="/login" method="post">
+                            <div class="mb-3">
+                                <label for="email" style="color: #000;" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" style="color: #000;" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100" style="border-radius: 30px;">Login</button>
+                        </form>
+                        <p class="text-center mt-3" style="color: #000;">Don't have an account? <a href="register" class="text-warning">Register</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

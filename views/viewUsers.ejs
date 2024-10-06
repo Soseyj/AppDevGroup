@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+        <div class="container">
+            <a class="navbar-brand" href="/admin"><span>Admin</span> Furni<span>.</span></a>
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsAdmin" aria-controls="navbarsAdmin" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarsAdmin">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/admin">Dashboard</a>
+                    </li>
+                    <li><a class="nav-link" href="/admin/products">Products</a></li>
+                    <li><a class="nav-link" href="/admin/orders">Orders</a></li>
+                    <li class="nav-item active"><a class="nav-link active" href="/admin/users">Users</a></li>
+                    <li><a class="nav-link" href="/admin/reports">Vouchers</a></li>
+                    <li><a class="nav-link" href="/admin/settings">Settings</a></li>
+                </ul>
+                
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="/logout"><img src="../assets/images/logout.svg" alt="Logout"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   
+    
+
+    <div class="container mt-4">
+        <h1>All Users</h1>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.id %></td>
+                        <td><%= user.fName %></td>
+                        <td><%= user.lName %></td>
+                        <td><%= user.phone %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.Created_AT %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <a href="/admin" class="btn btn-primary">Back to Admin Panel</a>
+    </div>
+
+    
+    <%- include('partials/scripts') %>
+</body>
+</html>

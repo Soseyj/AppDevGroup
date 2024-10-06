@@ -1,0 +1,50 @@
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/js/tiny-slider.js"></script>
+	<script src="../assets/js/custom.js"></script>
+	<script>document.getElementById('profileButton').addEventListener('click', function() {
+		window.location.href = '/user/' + userId; // Make sure `userId` is defined
+	});
+	</script>
+	<script>
+        // JavaScript to handle modal population
+        const productModal = document.getElementById('productModal');
+        productModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget; // Button that triggered the modal
+            const title = button.getAttribute('data-title');
+            const price = button.getAttribute('data-price');
+            const image = button.getAttribute('data-image');
+
+            const modalTitle = productModal.querySelector('#modalProductTitle');
+            const modalPrice = productModal.querySelector('#modalProductPrice');
+            const modalImage = productModal.querySelector('#modalProductImage');
+
+            modalTitle.textContent = title;
+            modalPrice.textContent = price;
+            modalImage.src = image;
+        });
+    </script>
+	<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productModal = document.getElementById('productModal');
+
+            productModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget; // Button that triggered the modal
+
+                // Extract info from data attributes
+                const image = button.getAttribute('data-image');
+                const title = button.getAttribute('data-title');
+                const price = button.getAttribute('data-price');
+
+                // Update the modal's content
+                const modalImage = productModal.querySelector('#modalProductImage');
+                const modalTitle = productModal.querySelector('#modalProductTitle');
+                const modalPrice = productModal.querySelector('#modalProductPrice');
+
+                modalImage.src = image;
+                modalTitle.textContent = title;
+                modalPrice.textContent = price;
+            });
+        });
+    </script>
+	
+

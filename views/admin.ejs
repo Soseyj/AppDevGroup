@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+        <div class="container">
+            <a class="navbar-brand" href="/admin"><span>Admin</span> Furni<span>.</span></a>
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsAdmin" aria-controls="navbarsAdmin" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarsAdmin">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin">Dashboard</a>
+                    </li>
+                    <li><a class="nav-link" href="/admin/products">Products</a></li>
+                    <li><a class="nav-link" href="/admin/orders">Orders</a></li>
+                    <li><a class="nav-link" href="/admin/users">Users</a></li>
+                    <li><a class="nav-link" href="/admin/reports">Vouchers</a></li>
+                    <li><a class="nav-link" href="/admin/settings">Settings</a></li>
+                </ul>
+                
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li>
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-sign-out-alt text-white"><span>Logout</span></i> <!-- Added the icon here -->
+                        </a>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+   
+    
+    <!-- Start Admin Dashboard Section -->
+    <div class="admin-dashboard">
+        <div class="container">
+            <h2 class="section-title mt-4 mb-4">Admin Dashboard</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <a href="/admin/users" class="btn btn-primary">View Users</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Products</h5>
+                            
+                            <a href="/admin/products" class="btn btn-primary">View Products</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/scripts') %>
+</body>
+</html>

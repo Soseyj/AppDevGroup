@@ -6,10 +6,32 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const { error } = require('console');
 
+
 const main = {
+    // Index page handler
+    index: (req, res) => {
+        const userId = req.session.userid;
+        let user = null;
+
+        if (userId) {
+            userModel.getUserById(userId).then(fetchedUser => {
+                user = fetchedUser;
+                res.render('index', { user });
+            }).catch(err => {
+                console.error(err);
+                res.render('index', { user });
+            });
+        } else {
+            res.render('index', { user });
+        }
+    },
+
+    // Admin page handler
     admin: (req, res) => {
         res.render('admin');
     },
+
+    // View users handler
     viewUsers: async (req, res) => {
         try {
             const users = await userModel.getAllUsers();
@@ -17,6 +39,68 @@ const main = {
         } catch (error) {
             console.error('Error fetching users:', error);
             res.status(500).send('Internal Server Error');
+        }
+    },
+    login: async (req, res) => {
+        const { email, password } = req.body;
+        try {
+            const User = await userModel.fEmail(email);
+            if (!User) {
+                return res.status(401).json({ message: 'Invalid credentials' });
+            }
+    
+            const isMatch = await bcrypt.compare(password, User.password);
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Invalid credentials' });
+            }
+            req.session.userid = User.id;
+            req.session.role = User.role; 
+            if (User.role === 'admin') {
+                return res.redirect('/admin'); 
+            } else {
+                return res.redirect('/index/' + User.id); 
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    },
+
+    isAdmin: (req, res, next) => {
+        if (req.session.role === 'admin') {
+            return next(); 
+        } else {
+            return res.status(403).json({ message: 'Access denied' }); 
+        }
+    },
+        register: (req, res) => {
+        res.render('register');
+    },
+        register1: async (req, res) => {
+        const { fName, lName, email, phone, password, confirmpassword } = req.body;
+        if (!fName || !lName || !phone || !password || !confirmpassword) {
+            return res.status(400).json({ message: 'All fields are required.' });
+        }
+        if (password !== confirmpassword) {
+            return res.status(400).json({ message: 'Passwords do not match.' });
+        }
+        try {
+            const existingUser = await userModel.fEmail(email);
+            if (existingUser) {
+                return res.status(400).json({ message: 'User with this email already exists.' });
+            }
+            const hashedPassword = await bcrypt.hash(password, 10);
+            await userModel.createUser({
+                fName,
+                lName,
+                email,
+                phone,
+                password: hashedPassword
+            });
+            res.redirect('/');
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error.' });
         }
     },
 

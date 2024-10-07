@@ -4,7 +4,7 @@ const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'ecommerce',
+    database: 'ecommerceFinal',
     waitForConnections: true, // Allow waiting for connections
     connectionLimit: 10, // Set a limit for the pool
     queueLimit: 0 // No limit for queued connections

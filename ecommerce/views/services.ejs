@@ -29,6 +29,13 @@
                     <li><a class="nav-link" href="/user/<%= user ? user.id : '' %>""><img src="../assets/images/user.svg"></a></li>
                     <li><a class="nav-link" href="/cart/<%= user ? user.id : '' %>""><img src="../assets/images/cart.svg"></a></li>
                 </ul>
+				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li>
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-sign-out-alt text-white"><span>Logout</span></i> <!-- Added the icon here -->
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
             

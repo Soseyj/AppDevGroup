@@ -393,6 +393,7 @@ const main = {
                 is_default: is_default === 'true' 
             });
             console.log('Update result:', result);
+            res.redirect('/user/' + userId);
             if (result.affectedRows === 0) {
                 console.log('No rows updated. Check if address ID and user ID are correct.');
             } else {
@@ -403,20 +404,18 @@ const main = {
             res.status(500).json({ message: 'Internal server error.' });
         }
     },
-    async  setDefaultAddress(req, res) {
-        const userId = req.session.userid; 
-        console.log(`Received userId: ${userId}, addressId: ${addressId}`); 
-        if (!userId || !addressId) {
-            return res.status(400).send({ error: "userId and addressId are required." });
-        }
-        try {
-            await addressModel.setDefaultAddress(userId, addressId);
-            res.redirect('/user/' + userId);
-        } catch (error) {
-            console.error("Error setting default address:", error);
-            res.status(500).send({ error: "Failed to set default address." });
-        }
-    },
+
+   async setDefaultAddress(req, res) {
+    const userId = req.session.userid; // Assuming user ID is stored in session
+    const addressId = req.body.addressId; // Assuming addressId is sent in the request body
+
+    try {
+        await addressModel.setDefaultAddress(userId, addressId);
+        res.redirect('/user/' + userId);
+    } catch (error) {
+    }
+},
+
 
     async searchProducts(req, res) {
         const userId = req.session.userid;
@@ -432,6 +431,21 @@ const main = {
             res.status(500).send({ error: "An error occurred while searching for products." });
         }
     },
+
+    deleteAddress: async (req, res) => {
+        const userId = req.session.userid; // Get the userId from the session
+        const addressId = req.body.addressId; // Assume addressId is sent in the body
+    
+        try {
+            // Call the model function to delete the address
+            await addressModel.deleteAddress(userId, addressId);
+            res.redirect('/user/' + userId); // Redirect back to user page after successful deletion
+        } catch (error) {
+            console.error("Error deleting address:", error);
+            res.status(500).send({ error: "Failed to delete address." });
+        }
+    }
+    
 
 };
 

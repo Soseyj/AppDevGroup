@@ -139,6 +139,26 @@ getAddressByUserId: (userId) => {
         } finally {
             connection.release();
         }
+    },
+
+    deleteAddress: async (userId, addressId) => {
+        const connection = await db1.getConnection();
+        await connection.beginTransaction();
+    
+        try {
+            // Delete the address where the addressId and userId match
+            await connection.query(
+                'DELETE FROM address WHERE id = ? AND user_id = ?',
+                [addressId, userId]
+            );
+            
+            await connection.commit();
+        } catch (error) {
+            await connection.rollback(); // Rollback in case of an error
+            throw error;
+        } finally {
+            connection.release();
+        }
     }
 };
 

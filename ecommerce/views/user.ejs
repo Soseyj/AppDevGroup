@@ -32,6 +32,13 @@
                     <li><a class="nav-link" href="/user/<%= user ? user.id : '' %>"><img src="../assets/images/user.svg"></a></li>
                     <li ><a class="nav-link" href="/cart/<%= user ? user.id : '' %>"><img src="../assets/images/cart.svg"></a></li>
                 </ul>
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li>
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-sign-out-alt text-white"><span>Logout</span></i> <!-- Added the icon here -->
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         </nav>
@@ -169,13 +176,7 @@
                                   <input type="text" class="form-control" id="postal" name="postal" placeholder="Enter postal code">
                                 </div>
                               </div>
-                              <div class="mb-3">
-                                
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="is_default" name="is_default" value="1">
-                                    <label class="form-check-label" for="is_default">Set as default address</label>
-                                </div>
-                                
+                              <div class="mb-3">                    
                             </div>
                             
                             <button type="submit" class="btn btn-success mt-3 mb-5">Add Address</button>

@@ -58,5 +58,6 @@ router.get('/address/:addressId', main.address);
 router.post('/addAdd/', main.addAddress);
 router.post('/updateAdd/:id', main.updateAddress);
 router.post('/setDefault/:addressId', main.setDefaultAddress);
+router.post('/deleteAddress/:addressId', main.deleteAddress);
 
 module.exports = router;

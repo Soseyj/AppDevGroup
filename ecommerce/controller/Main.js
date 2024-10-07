@@ -3,7 +3,7 @@ const userModel = require('../models/userModel');
 const addressModel = require('../models/addressModel');
 const db = require('../config/db')
 const path = require('path');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { error } = require('console');
 
 
